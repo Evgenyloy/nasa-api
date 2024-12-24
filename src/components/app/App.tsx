@@ -11,8 +11,6 @@ function App() {
     isSuccess,
     isLoading,
   } = useGetAsteroidsDataQuery('');
-  //сделать меню по отслеживаемым астероидам
-  //туда астероиды будут попадать сразу
 
   return (
     <div className="app">

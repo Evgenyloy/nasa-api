@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { transformData } from './apiSlice.utils';
 import { apiKey } from '../api-key';
-import { IAsteroid } from './apiSlice.type';
+import { IAsteroid } from './types/types';
+import { transformData } from './utils/utils';
 
 const date = new Date().getDate() + 1;
 const year = new Date().getFullYear();

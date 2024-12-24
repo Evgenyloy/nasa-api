@@ -1,32 +1,27 @@
-import { IAsteroid } from '../../api/apiSlice.type';
-import { useAppDispatch } from '../../hooks/hooks';
+import { IAsteroid } from '../../api/types/types';
 import asteroidImg from '../../image/asteroid.png';
-import { addTrackedAsteroid } from '../../slices/slice';
+import { addTrackedAsteroid, removeTrackedAsteroid } from '../../slices/slice';
+import useRedux from '../../hooks/useRedux';
+import { IAsteroidListItemProps } from './types/asteroidsListItemTypes';
+import { dateFormatting, numberFormatting } from './utils/utils';
+import { useCheckTrackedAsteroid } from './hooks/useCheckTrackedAsteroid';
 import './asteroidsListItem.scss';
 
-export interface IAsteroidListItemProps {
-  asteroid: IAsteroid;
-}
-
 function AsteroidListItem({ asteroid }: IAsteroidListItemProps) {
-  const {
-    approachDate,
-    diameter,
-    distance,
-    hazard,
-    name,
-    velocityKmS,
-    asteroidNasaLink,
-    id,
-  } = asteroid;
-  const dispatch = useAppDispatch();
+  const { approachDate, diameter, distance, hazard, name, id } = asteroid;
+  const date = dateFormatting(approachDate);
+  const formattedDistance = numberFormatting(distance);
 
-  const date = new Date(approachDate.split('-').join()).toLocaleString('ru', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
+  const { dispatch, trackedAsteroids } = useRedux();
+  const { trackedAsteroid } = useCheckTrackedAsteroid(asteroid);
+
+  function handleClick(asteroid: IAsteroid, id: string) {
+    if (!trackedAsteroids.includes(asteroid)) {
+      dispatch(addTrackedAsteroid(asteroid));
+    } else {
+      dispatch(removeTrackedAsteroid(id));
+    }
+  }
 
   return (
     <div className="asteroid-item">
@@ -34,9 +29,7 @@ function AsteroidListItem({ asteroid }: IAsteroidListItemProps) {
       <div className="asteroid-item__characteristics">
         <div className="asteroid-item__characteristics-distance-inner">
           <div className="asteroid-item__characteristics-distance">
-            {new Intl.NumberFormat('ru').format(
-              +parseFloat(distance.distanceKilometers).toFixed()
-            ) + ' км'}
+            {formattedDistance} км
           </div>
           <div className="asteroid-item__characteristics-distance-line"></div>
         </div>
@@ -53,18 +46,18 @@ function AsteroidListItem({ asteroid }: IAsteroidListItemProps) {
           />
         </div>
         <div className="asteroid-item__characteristics-inner">
-          <div className="asteroid-item__characteristics-name"> {name}</div>
+          <div className="asteroid-item__characteristics-name">{name}</div>
           <div className="asteroid-item__characteristics-diameter">
-            Ø {diameter + ' м'}
+            Ø {diameter} м
           </div>
         </div>
       </div>
       <div className="asteroid-item__track-inner">
         <div
           className="asteroid-item__button"
-          onClick={() => dispatch(addTrackedAsteroid(asteroid))}
+          onClick={() => handleClick(asteroid, id)}
         >
-          Отслеживать
+          {trackedAsteroid ? 'удалить' : 'Отслеживать'}
         </div>
         <div className="asteroid-item__danger">
           {hazard ? 'Опасный!' : null}

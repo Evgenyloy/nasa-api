@@ -1,27 +1,32 @@
 import React from 'react';
-import { IAsteroid } from '../../api/apiSlice.type';
 import AsteroidListItem from '../asteroidsListItem.tsx/AsteroidListItem';
+import useRedux from '../../hooks/useRedux';
+import { IAsteroidsListProps } from './types/types';
+import { IAsteroid } from '../../api/types/types';
+import Filter from '../filter/Filter';
 import './asteroidsList.scss';
-import { useAppSelector } from '../../hooks/hooks';
+import { sortFn } from './utils/utils';
 
-export interface IAsteroidsListProps {
-  dataAr: {
-    asteroids: IAsteroid[] | undefined;
-    isError: boolean;
-    isFetching: boolean;
-    isSuccess: boolean;
-    isLoading: boolean;
-  };
+function renderAsteroidList(asteroids: IAsteroid[] | undefined) {
+  if (!asteroids) return;
+  return asteroids?.map((asteroid) => {
+    return (
+      <React.Fragment key={asteroid.id}>
+        <AsteroidListItem asteroid={asteroid} />
+      </React.Fragment>
+    );
+  });
 }
 
 function AsteroidsList({
   dataAr: { asteroids, isError, isFetching, isLoading, isSuccess },
 }: IAsteroidsListProps) {
-  const trackedAsteroids = useAppSelector(
-    (state) => state.asteroidsSlice.trackedAsteroids
-  );
-  const showTrackedAsteroids = useAppSelector(
-    (state) => state.asteroidsSlice.showTrackedAsteroids
+  const { showTrackedAsteroids, trackedAsteroids, filter } = useRedux();
+  if (!asteroids) return;
+
+  const allAsteroids = renderAsteroidList(sortFn(asteroids, filter));
+  const trackedAsteroidsList = renderAsteroidList(
+    sortFn(trackedAsteroids, filter)
   );
 
   return (
@@ -32,36 +37,9 @@ function AsteroidsList({
             ? 'Отслеживаемые астероиды'
             : 'Ближайшие подлеты астероидов'}
         </h1>
+        <Filter />
         <div className="asteroids-list__inner">
-          {showTrackedAsteroids
-            ? trackedAsteroids?.map((asteroid) => {
-                return (
-                  <React.Fragment key={asteroid.id}>
-                    <AsteroidListItem asteroid={asteroid} />
-                  </React.Fragment>
-                );
-              })
-            : asteroids?.map((asteroid) => {
-                return (
-                  <React.Fragment key={asteroid.id}>
-                    <AsteroidListItem asteroid={asteroid} />
-                  </React.Fragment>
-                );
-              })}
-          {/*  {asteroids?.map((asteroid) => {
-            return (
-              <React.Fragment key={asteroid.id}>
-                <AsteroidListItem asteroid={asteroid} />
-              </React.Fragment>
-            );
-          })} */}
-          {/* {trackedAsteroids?.map((asteroid) => {
-            return (
-              <React.Fragment key={asteroid.id}>
-                <AsteroidListItem asteroid={asteroid} />
-              </React.Fragment>
-            );
-          })} */}
+          {showTrackedAsteroids ? trackedAsteroidsList : allAsteroids}
         </div>
       </div>
     </div>

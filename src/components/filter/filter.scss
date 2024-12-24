@@ -1,0 +1,15 @@
+.filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 60px;
+  font-size: 16px;
+  &__item {
+    cursor: pointer;
+    &:hover {
+      color: rgb(248, 102, 0);
+    }
+  }
+  &__item--active {
+    color: rgb(248, 102, 0);
+  }
+}
