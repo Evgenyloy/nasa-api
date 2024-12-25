@@ -4,8 +4,8 @@ import useRedux from '../../hooks/useRedux';
 import { IAsteroidsListProps } from './types/types';
 import { IAsteroid } from '../../api/types/types';
 import Filter from '../filter/Filter';
-import './asteroidsList.scss';
 import { sortFn } from './utils/utils';
+import './asteroidsList.scss';
 
 function renderAsteroidList(asteroids: IAsteroid[] | undefined) {
   if (!asteroids) return;

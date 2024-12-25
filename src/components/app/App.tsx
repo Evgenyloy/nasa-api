@@ -1,6 +1,8 @@
 import { useGetAsteroidsDataQuery } from '../../api/apiSlice';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from '../header/Header';
 import Main from '../main/Main';
+import Asteroid from '../asteroid/Asteroid';
 import './app.scss';
 
 function App() {
@@ -15,7 +17,12 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <Main />
+      <Router>
+        <Routes>
+          <Route path="/" index element={<Main />} />
+          <Route path="asteroid" element={<Asteroid />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

@@ -21,7 +21,13 @@ export const nasaApi = createApi({
         return dataArray;
       },
     }),
+    getAsteroid: builder.query({
+      query: (id) => `neo/${id}?api_key=${apiKey}`,
+      // transformResponse: (response) => {
+      //  return response
+      // },
+    }),
   }),
 });
 
-export const { useGetAsteroidsDataQuery } = nasaApi;
+export const { useGetAsteroidsDataQuery, useGetAsteroidQuery } = nasaApi;

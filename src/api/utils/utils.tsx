@@ -3,7 +3,7 @@ import { IAsteroid } from '../types/types';
 export function transformData(data: any) {
   const dataArray = Object.entries(data?.near_earth_objects).map(
     (item: any) => {
-      const transformedArray = item[1].map((elem: any) => {
+      const transformedArray:IAsteroid[] = item[1].map((elem: any) => {
         const transformedData: IAsteroid = {
           name: elem.name.replace(/[^a-zA-Z0-9 ]/g, ''),
           id: elem.id,

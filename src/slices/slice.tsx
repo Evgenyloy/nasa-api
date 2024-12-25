@@ -5,12 +5,14 @@ interface IInitialState {
   trackedAsteroids: IAsteroid[];
   showTrackedAsteroids: boolean;
   filter: string;
+  id: string;
 }
 
 const initialState: IInitialState = {
   trackedAsteroids: [],
   showTrackedAsteroids: false,
   filter: 'date',
+  id: '',
 };
 
 const slice = createSlice({
@@ -31,6 +33,9 @@ const slice = createSlice({
     setFilter: (state, action: PayloadAction<string>) => {
       state.filter = action.payload;
     },
+    setId: (state, action: PayloadAction<string>) => {
+      state.id = action.payload;
+    },
   },
 });
 
@@ -41,4 +46,5 @@ export const {
   toggleShowTrackedAsteroids,
   removeTrackedAsteroid,
   setFilter,
+  setId,
 } = actions;
