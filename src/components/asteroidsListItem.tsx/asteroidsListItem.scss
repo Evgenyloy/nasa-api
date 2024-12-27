@@ -1,6 +1,8 @@
 .asteroid-item {
   margin-bottom: 50px;
+  display: inline-block;
   &__inner {
+    position: relative;
     cursor: pointer;
   }
   &__oncoming-date {
@@ -16,9 +18,10 @@
     margin-bottom: 10px;
   }
   &__characteristics-distance-inner {
-    min-width: 104px;
+    min-width: 123px;
   }
   &__characteristics-distance {
+    text-align: center;
     font-size: 16px;
     height: 30px;
   }
@@ -84,7 +87,7 @@
   &__track-inner {
     position: relative;
     display: flex;
-    gap: 90px;
+    gap: 116px;
     width: 100%;
     align-items: center;
   }
@@ -118,8 +121,21 @@
     }
   }
 
+  &__button--active {
+    color: rgb(64, 137, 248);
+  }
+
   &__danger {
     color: rgb(248, 102, 0);
     font-size: 16px;
+  }
+}
+
+@media (max-width: 890px) {
+  .asteroid-item__characteristics {
+    gap: 10px;
+  }
+  .asteroid-item__track-inner {
+    gap: 60px;
   }
 }

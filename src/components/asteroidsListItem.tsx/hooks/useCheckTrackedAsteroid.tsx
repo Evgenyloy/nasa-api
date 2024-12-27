@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+/* import { useEffect, useState } from 'react';
 import useRedux from '../../../hooks/useRedux';
 import { IAsteroid } from '../../../api/types/types';
 
@@ -16,3 +16,4 @@ export function useCheckTrackedAsteroid(asteroid: IAsteroid) {
 
   return { trackedAsteroid };
 }
+ */

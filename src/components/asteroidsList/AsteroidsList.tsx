@@ -1,10 +1,10 @@
-import React from 'react';
-import AsteroidListItem from '../asteroidsListItem.tsx/AsteroidListItem';
-import useRedux from '../../hooks/useRedux';
 import { IAsteroidsListProps } from './types/types';
-import { IAsteroid } from '../../api/types/types';
-import Filter from '../filter/Filter';
+import AsteroidListItem from '../asteroidsListItem.tsx/AsteroidListItem';
+import React from 'react';
 import { sortFn } from './utils/utils';
+import useRedux from '../../hooks/useRedux';
+import Filter from '../filter/Filter';
+import { IAsteroid } from '../../api/types/types';
 import './asteroidsList.scss';
 
 function renderAsteroidList(asteroids: IAsteroid[] | undefined) {
@@ -18,29 +18,23 @@ function renderAsteroidList(asteroids: IAsteroid[] | undefined) {
   });
 }
 
-function AsteroidsList({
-  dataAr: { asteroids, isError, isFetching, isLoading, isSuccess },
-}: IAsteroidsListProps) {
+function AsteroidsList({ asteroids }: IAsteroidsListProps) {
   const { showTrackedAsteroids, trackedAsteroids, filter } = useRedux();
-  if (!asteroids) return;
-
   const allAsteroids = renderAsteroidList(sortFn(asteroids, filter));
   const trackedAsteroidsList = renderAsteroidList(
     sortFn(trackedAsteroids, filter)
   );
 
   return (
-    <div className="asteroids-list">
-      <div className="container">
-        <h1 className="asteroids__title">
-          {showTrackedAsteroids
-            ? 'Отслеживаемые астероиды'
-            : 'Ближайшие подлеты астероидов'}
-        </h1>
-        <Filter />
-        <div className="asteroids-list__inner">
-          {showTrackedAsteroids ? trackedAsteroidsList : allAsteroids}
-        </div>
+    <div className="asteroids">
+      <h1 className="asteroids__title">
+        {showTrackedAsteroids
+          ? 'Отслеживаемые астероиды'
+          : 'Ближайшие подлеты астероидов'}
+      </h1>
+      <Filter />
+      <div className="asteroids-list__inner">
+        {showTrackedAsteroids ? trackedAsteroidsList : allAsteroids}
       </div>
     </div>
   );

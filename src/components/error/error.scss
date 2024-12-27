@@ -1,0 +1,13 @@
+.error {
+  text-align: center;
+  font-size: 16px;
+  color: rgb(248, 102, 0);
+
+  position: absolute;
+  z-index: 2000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  line-height: 1.5;
+}

@@ -12,7 +12,9 @@ const initialState: IInitialState = {
   trackedAsteroids: [],
   showTrackedAsteroids: false,
   filter: 'date',
-  id: '',
+  id: localStorage.getItem('asteroidId')
+    ? JSON.parse(localStorage.getItem('asteroidId') as string)
+    : '',
 };
 
 const slice = createSlice({
@@ -20,12 +22,16 @@ const slice = createSlice({
   initialState,
   reducers: {
     addTrackedAsteroid: (state, action: PayloadAction<IAsteroid>) => {
-      state.trackedAsteroids.push(action.payload);
+      state.trackedAsteroids.push({ ...action.payload, tracked: true });
     },
     removeTrackedAsteroid: (state, action: PayloadAction<string>) => {
-      state.trackedAsteroids = state.trackedAsteroids.filter(
-        (item) => item.id !== action.payload
-      );
+      state.trackedAsteroids = state.trackedAsteroids.filter((item) => {
+        if (item.id !== action.payload) {
+          return { ...item, tracked: false };
+        } else {
+          return item;
+        }
+      });
     },
     toggleShowTrackedAsteroids: (state) => {
       state.showTrackedAsteroids = !state.showTrackedAsteroids;
@@ -35,6 +41,7 @@ const slice = createSlice({
     },
     setId: (state, action: PayloadAction<string>) => {
       state.id = action.payload;
+      localStorage.setItem('asteroidId', JSON.stringify(action.payload));
     },
   },
 });

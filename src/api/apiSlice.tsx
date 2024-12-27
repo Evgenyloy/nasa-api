@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { transformAsteroidsData, transformSingleAsteroid } from './utils/utils';
+import { IAsteroid, IAsteroidItem } from './types/types';
 import { apiKey } from '../api-key';
-import { IAsteroid } from './types/types';
-import { transformData } from './utils/utils';
 
 const date = new Date().getDate() + 1;
 const year = new Date().getFullYear();
@@ -17,15 +17,16 @@ export const nasaApi = createApi({
     getAsteroidsData: builder.query<IAsteroid[], unknown>({
       query: () => `feed?start_date=${year}-${month}-${date}&api_key=${apiKey}`,
       transformResponse: (response) => {
-        const dataArray = transformData(response).flat(2);
+        const dataArray = transformAsteroidsData(response).flat(2);
         return dataArray;
       },
     }),
-    getAsteroid: builder.query({
+    getAsteroid: builder.query<IAsteroidItem, string>({
       query: (id) => `neo/${id}?api_key=${apiKey}`,
-      // transformResponse: (response) => {
-      //  return response
-      // },
+      transformResponse: (response: any) => {
+        const newData = transformSingleAsteroid(response);
+        return newData;
+      },
     }),
   }),
 });

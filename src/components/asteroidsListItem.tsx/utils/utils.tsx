@@ -10,9 +10,9 @@ export function dateFormatting(approachDate: string) {
   return date;
 }
 
-export function numberFormatting(distance: IDistance) {
+export function numberFormatting(distance: string) {
   const formattedDistance = new Intl.NumberFormat('ru').format(
-    +parseFloat(distance.distanceKilometers).toFixed()
+    +parseFloat(distance).toFixed()
   );
 
   return formattedDistance;

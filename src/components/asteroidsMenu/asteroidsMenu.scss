@@ -1,7 +1,6 @@
 .tracked-asteroids {
   position: sticky;
   top: 200px;
-  right: 200px;
   padding: 20px;
   width: 160px;
   height: 160px;
@@ -28,9 +27,7 @@
     background: rgb(248, 102, 0);
     color: #fff;
   }
-  &__container {
-    position: relative;
-  }
+
   &__number {
     font-size: 25px;
     color: rgb(248, 102, 0);
@@ -39,4 +36,36 @@
 
 .tracked-asteroids--visible-none {
   justify-content: space-between;
+}
+
+@media (max-width: 950px) {
+  .tracked-asteroids {
+    padding: 15px;
+    width: 140px;
+    height: 140px;
+
+    &__link {
+      width: 100px;
+      height: 36px;
+    }
+  }
+}
+@media (max-width: 570px) {
+  .tracked-asteroids {
+    z-index: 5000;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: auto;
+    width: 100%;
+    border-radius: 0;
+    padding: 5px;
+    height: 100px;
+    &__number {
+      font-size: 18px;
+    }
+    &__link {
+      height: 30px;
+    }
+  }
 }

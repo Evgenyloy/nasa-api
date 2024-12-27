@@ -2,7 +2,11 @@ import AsteroidsList from '../asteroidsList/AsteroidsList';
 import earthImage from '../../image/earth.png';
 import AsteroidsMenu from '../asteroidsMenu/AsteroidsMenu';
 import { useGetAsteroidsDataQuery } from '../../api/apiSlice';
+
 import './main.scss';
+import MainInner from './MainInner';
+import Spinner from '../spinner/Spinner';
+import Error from '../error/Error';
 
 function Main() {
   const {
@@ -12,14 +16,11 @@ function Main() {
     isSuccess,
     isLoading,
   } = useGetAsteroidsDataQuery('');
-  if (!asteroids) return;
   return (
     <div className="main">
-      <img src={earthImage} alt="Earth-planet" className="main-image" />
-      <AsteroidsList
-        dataAr={{ asteroids, isError, isFetching, isSuccess, isLoading }}
-      />
-      <AsteroidsMenu />
+      {(isFetching || isLoading) && <Spinner />}
+      {isError && <Error />}
+      {isSuccess && <MainInner asteroids={asteroids} />}
     </div>
   );
 }

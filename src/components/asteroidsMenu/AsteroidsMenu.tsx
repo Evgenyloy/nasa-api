@@ -42,14 +42,12 @@ function TrackedAsteroids() {
   );
 
   return (
-    <div className="tracked-asteroids__container">
-      <div className={trackedAsteroidsClassName}>
-        <div className="tracked-asteroids__text">
-          {trackedAsteroidsTextClassName}
-        </div>
-
-        {(!!trackedAsteroids.length || showTrackedAsteroids) && innerView}
+    <div className={trackedAsteroidsClassName}>
+      <div className="tracked-asteroids__text">
+        {trackedAsteroidsTextClassName}
       </div>
+
+      {(!!trackedAsteroids.length || showTrackedAsteroids) && innerView}
     </div>
   );
 }
