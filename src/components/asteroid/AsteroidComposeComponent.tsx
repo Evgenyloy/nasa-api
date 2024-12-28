@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { numberFormatting } from '../asteroidsListItem.tsx/utils/utils';
-import { IAsteroidItem } from '../../api/types/types';
+import { numberFormatting } from '../asteroidsListItem.tsx/utils';
+import { ISingleAsteroid } from '../../api/types';
 import { v4 as uuidv4 } from 'uuid';
+import { AsteroidInnerProps } from './types';
 
-function renderAsteroidTableView(asteroid: IAsteroidItem) {
+function renderAsteroidTableView(asteroid: ISingleAsteroid) {
   const items = asteroid?.approach_data?.map((item) => {
     return (
       <div className="asteroid__approach-item" key={uuidv4()}>
@@ -86,11 +87,7 @@ function renderAsteroidView(asteroid: any) {
   );
 }
 
-interface AsteroidInnerProps {
-  asteroid: IAsteroidItem;
-}
-
-function AsteroidInner({ asteroid }: AsteroidInnerProps) {
+function AsteroidComposeComponent({ asteroid }: AsteroidInnerProps) {
   const asteroidItem = renderAsteroidView(asteroid);
   const table = renderAsteroidTableView(asteroid);
   return (
@@ -101,4 +98,4 @@ function AsteroidInner({ asteroid }: AsteroidInnerProps) {
   );
 }
 
-export default AsteroidInner;
+export default AsteroidComposeComponent;

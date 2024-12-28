@@ -1,14 +1,13 @@
-import { IAsteroidsListProps } from './types/types';
+import { IAsteroidsListProps } from './types';
 import AsteroidListItem from '../asteroidsListItem.tsx/AsteroidListItem';
 import React from 'react';
-import { sortFn } from './utils/utils';
+import { sortFn } from './utils';
 import useRedux from '../../hooks/useRedux';
 import Filter from '../filter/Filter';
-import { IAsteroid } from '../../api/types/types';
+import { IAsteroid } from '../../api/types';
 import './asteroidsList.scss';
 
 function renderAsteroidList(asteroids: IAsteroid[] | undefined) {
-  if (!asteroids) return;
   return asteroids?.map((asteroid) => {
     return (
       <React.Fragment key={asteroid.id}>
@@ -20,7 +19,9 @@ function renderAsteroidList(asteroids: IAsteroid[] | undefined) {
 
 function AsteroidsList({ asteroids }: IAsteroidsListProps) {
   const { showTrackedAsteroids, trackedAsteroids, filter } = useRedux();
+
   const allAsteroids = renderAsteroidList(sortFn(asteroids, filter));
+
   const trackedAsteroidsList = renderAsteroidList(
     sortFn(trackedAsteroids, filter)
   );

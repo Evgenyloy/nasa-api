@@ -1,4 +1,4 @@
-import { IApproachData, IAsteroid, IAsteroidItem } from '../types/types';
+import { IApproachData, IAsteroid, ISingleAsteroid } from './types';
 
 export function transformAsteroidsData(data: any) {
   const dataArray = Object.entries(data?.near_earth_objects).map(
@@ -9,7 +9,6 @@ export function transformAsteroidsData(data: any) {
           id: elem.id,
           hazard: elem.is_potentially_hazardous_asteroid,
           approachDate: elem.close_approach_data[0].close_approach_date,
-          tracked: false,
           distance: {
             distanceKilometers:
               elem.close_approach_data[0].miss_distance.kilometers,
@@ -40,7 +39,7 @@ export function transformSingleAsteroid(response: any) {
     }
   );
 
-  const data: IAsteroidItem = {
+  const data: ISingleAsteroid = {
     name: response.name,
     absolute_magnitude_h: response.absolute_magnitude_h,
     designation: response.designation,

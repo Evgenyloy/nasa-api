@@ -1,13 +1,9 @@
 import AsteroidsList from '../asteroidsList/AsteroidsList';
 import AsteroidsMenu from '../asteroidsMenu/AsteroidsMenu';
 import earthImage from '../../image/earth.png';
-import { IAsteroid } from '../../api/types/types';
+import { IMainInnerProps } from './type';
 
-interface IMainInnerProps {
-  asteroids: IAsteroid[];
-}
-
-function MainInner({ asteroids }: IMainInnerProps) {
+function MainComposeComponent({ asteroids }: IMainInnerProps) {
   return (
     <>
       {' '}
@@ -22,4 +18,4 @@ function MainInner({ asteroids }: IMainInnerProps) {
   );
 }
 
-export default MainInner;
+export default MainComposeComponent;

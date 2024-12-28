@@ -1,4 +1,3 @@
-import { useGetAsteroidsDataQuery } from '../../api/apiSlice';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from '../header/Header';
 import Main from '../main/Main';
@@ -7,14 +6,6 @@ import Page404 from '../page404/Page404';
 import './app.scss';
 
 function App() {
-  const {
-    data: asteroids,
-    isError,
-    isFetching,
-    isSuccess,
-    isLoading,
-  } = useGetAsteroidsDataQuery('');
-
   return (
     <div className="app">
       <Router>

@@ -1,4 +1,4 @@
-import { IAsteroid } from '../../api/types/types';
+import { IAsteroid } from '../../api/types';
 import useRedux from '../../hooks/useRedux';
 import { toggleShowTrackedAsteroids } from '../../slices/slice';
 import { AppDispatch } from '../../types/types';

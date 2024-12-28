@@ -1,61 +1,24 @@
-import { IAsteroid } from '../../api/types/types';
 import asteroidImg from '../../image/asteroid.png';
-import {
-  addTrackedAsteroid,
-  removeTrackedAsteroid,
-  setId,
-} from '../../slices/slice';
+import { setId } from '../../slices/slice';
 import useRedux from '../../hooks/useRedux';
-import { IAsteroidListItemProps } from './types/asteroidsListItemTypes';
-import { dateFormatting, numberFormatting } from './utils/utils';
+import { IAsteroidListItemProps } from './types';
+import { dateFormatting, handleClick, numberFormatting } from './utils';
 import { Link } from 'react-router-dom';
+import { useCheckTrackedAsteroid } from './hooks/useCheckTrackedAsteroid';
 import './asteroidsListItem.scss';
-import { useEffect, useState } from 'react';
 
 function AsteroidListItem({ asteroid }: IAsteroidListItemProps) {
   const { approachDate, diameter, distance, hazard, name, id } = asteroid;
 
+  const { dispatch, trackedAsteroids } = useRedux();
+  const { trackedAsteroid } = useCheckTrackedAsteroid(asteroid);
+
   const date = dateFormatting(approachDate);
   const formattedDistance = numberFormatting(distance.distanceKilometers);
 
-  const { dispatch, trackedAsteroids } = useRedux();
-
-  function handleClick(asteroid: IAsteroid, id: string) {
-    if (!trackedAsteroids.includes(asteroid)) {
-      dispatch(addTrackedAsteroid(asteroid));
-    } else {
-      dispatch(removeTrackedAsteroid(id));
-    }
-  }
-  const [trackedAsteroid, setTrackedAsteroid] = useState<boolean>(
-    asteroid.tracked
-  );
-
-  function checkTrackedAsteroid(
-    trackedAsteroids: IAsteroid[],
-    asteroid: IAsteroid
-  ) {
-    if (trackedAsteroids.some((el) => el.id === asteroid.id)) {
-      setTrackedAsteroid(true);
-    } else {
-      setTrackedAsteroid(false);
-    }
-  }
-
-  function handleAsteroidItemClick(id: string) {
-    dispatch(setId(id));
-  }
-
-  useEffect(() => {
-    checkTrackedAsteroid(trackedAsteroids, asteroid);
-  }, [trackedAsteroids, asteroid]);
-
   return (
     <div className="asteroid-item">
-      <div
-        className="asteroid-item__inner"
-        onClick={() => handleAsteroidItemClick(id)}
-      >
+      <div className="asteroid-item__inner" onClick={() => dispatch(setId(id))}>
         <div className="asteroid-item__oncoming-date">{date}</div>
         <div className="asteroid-item__characteristics">
           <div className="asteroid-item__characteristics-distance-inner">
@@ -92,7 +55,7 @@ function AsteroidListItem({ asteroid }: IAsteroidListItemProps) {
               ? 'asteroid-item__button asteroid-item__button--active'
               : 'asteroid-item__button'
           }
-          onClick={() => handleClick(asteroid, id)}
+          onClick={() => handleClick(trackedAsteroids, asteroid, id, dispatch)}
         >
           {trackedAsteroid ? 'удалить' : 'Отслеживать'}
         </div>

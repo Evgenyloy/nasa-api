@@ -1,6 +1,6 @@
 import { useGetAsteroidQuery } from '../../api/apiSlice';
 import { useAppSelector } from '../../hooks/hooks';
-import AsteroidInner from './AsteroidInner';
+import AsteroidComposeComponent from './AsteroidComposeComponent';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
 import './asteroid.scss';
@@ -19,7 +19,7 @@ function Asteroid() {
     <div className="asteroid">
       {(isFetching || isLoading) && <Spinner />}
       {isError && <Error />}
-      {isSuccess && <AsteroidInner asteroid={asteroid} />}
+      {isSuccess && <AsteroidComposeComponent asteroid={asteroid} />}
     </div>
   );
 }

@@ -5,7 +5,6 @@ export interface IDistance {
 
 export interface IAsteroid {
   approachDate: string;
-  tracked: boolean;
   diameter: string;
   distance: IDistance;
   hazard: boolean;
@@ -13,7 +12,7 @@ export interface IAsteroid {
   name: string;
 }
 
-export interface IAsteroidItem {
+export interface ISingleAsteroid {
   name: string;
   absolute_magnitude_h: number;
   designation: string;

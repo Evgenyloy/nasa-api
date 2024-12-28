@@ -1,19 +1,23 @@
-/* import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import useRedux from '../../../hooks/useRedux';
-import { IAsteroid } from '../../../api/types/types';
+import { IAsteroid } from '../../../api/types';
 
 export function useCheckTrackedAsteroid(asteroid: IAsteroid) {
-  const [trackedAsteroid, setTrackedAsteroid] = useState(false);
   const { trackedAsteroids } = useRedux();
+  const [trackedAsteroid, setTrackedAsteroid] = useState<boolean>();
 
-  useEffect(() => {
-    if (!trackedAsteroids.includes(asteroid)) {
-      setTrackedAsteroid(false);
-    } else {
-      setTrackedAsteroid(true);
-    }
-  }, [trackedAsteroids, asteroid]);
+  function checkTrackedAsteroid(
+    trackedAsteroids: IAsteroid[],
+    asteroid: IAsteroid
+  ) {
+    trackedAsteroids.some((el) => el.id === asteroid.id)
+      ? setTrackedAsteroid(true)
+      : setTrackedAsteroid(false);
+  }
+
+  useLayoutEffect(() => {
+    checkTrackedAsteroid(trackedAsteroids, asteroid);
+  }, [trackedAsteroids]);
 
   return { trackedAsteroid };
 }
- */

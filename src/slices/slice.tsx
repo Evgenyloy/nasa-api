@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAsteroid } from '../api/types/types';
+import { IAsteroid } from '../api/types';
 
 interface IInitialState {
   trackedAsteroids: IAsteroid[];
@@ -9,7 +9,9 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  trackedAsteroids: [],
+  trackedAsteroids: localStorage.getItem('trackedAsteroids')
+    ? JSON.parse(localStorage.getItem('trackedAsteroids') as string)
+    : [],
   showTrackedAsteroids: false,
   filter: 'date',
   id: localStorage.getItem('asteroidId')
@@ -22,16 +24,20 @@ const slice = createSlice({
   initialState,
   reducers: {
     addTrackedAsteroid: (state, action: PayloadAction<IAsteroid>) => {
-      state.trackedAsteroids.push({ ...action.payload, tracked: true });
+      state.trackedAsteroids.push(action.payload);
+      localStorage.setItem(
+        'trackedAsteroids',
+        JSON.stringify(state.trackedAsteroids)
+      );
     },
     removeTrackedAsteroid: (state, action: PayloadAction<string>) => {
       state.trackedAsteroids = state.trackedAsteroids.filter((item) => {
-        if (item.id !== action.payload) {
-          return { ...item, tracked: false };
-        } else {
-          return item;
-        }
+        return item.id !== action.payload;
       });
+      localStorage.setItem(
+        'trackedAsteroids',
+        JSON.stringify(state.trackedAsteroids)
+      );
     },
     toggleShowTrackedAsteroids: (state) => {
       state.showTrackedAsteroids = !state.showTrackedAsteroids;
