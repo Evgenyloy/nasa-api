@@ -1,5 +1,5 @@
 import { IAsteroidsListProps } from './types';
-import AsteroidListItem from '../asteroidsListItem.tsx/AsteroidListItem';
+import AsteroidListItem from '../asteroidsListItem/AsteroidListItem';
 import React from 'react';
 import { sortFn } from './utils';
 import useRedux from '../../hooks/useRedux';

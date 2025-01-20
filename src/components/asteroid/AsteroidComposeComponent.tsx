@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { numberFormatting } from '../asteroidsListItem.tsx/utils';
+import { numberFormatting } from '../asteroidsListItem/utils';
 import { ISingleAsteroid } from '../../api/types';
 import { v4 as uuidv4 } from 'uuid';
 import { AsteroidInnerProps } from './types';

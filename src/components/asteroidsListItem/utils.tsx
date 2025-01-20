@@ -13,9 +13,12 @@ export function dateFormatting(approachDate: string) {
 }
 
 export function numberFormatting(distance: string) {
+  console.log(distance);
+
   const formattedDistance = new Intl.NumberFormat('ru').format(
     +parseFloat(distance).toFixed()
   );
+  console.log(formattedDistance);
 
   return formattedDistance;
 }
