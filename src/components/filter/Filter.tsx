@@ -1,43 +1,43 @@
-import { useAppDispatch } from '../../hooks/hooks';
-import { setFilter } from '../../slices/slice';
-import useRedux from '../../hooks/useRedux';
-import './filter.scss';
+import { useAppDispatch } from "../../hooks/hooks";
+import { setFilter } from "../../slices/slice";
+import useRedux from "../../hooks/useRedux";
+import "./filter.scss";
 
 function Filter() {
   const dispatch = useAppDispatch();
   const { filter } = useRedux();
   return (
     <ul className="filter">
-      сортировать:
+      Сортировать:
       <li
         className={
-          filter === 'date'
-            ? 'filter__item filter__item--active'
-            : 'filter__item'
+          filter === "date"
+            ? "filter__item filter__item--active"
+            : "filter__item"
         }
-        onClick={() => dispatch(setFilter('date'))}
+        onClick={() => dispatch(setFilter("date"))}
       >
         дата сближения
       </li>
       <li
         className={
-          filter === 'distance'
-            ? 'filter__item filter__item--active'
-            : 'filter__item'
+          filter === "distance"
+            ? "filter__item filter__item--active"
+            : "filter__item"
         }
-        onClick={() => dispatch(setFilter('distance'))}
+        onClick={() => dispatch(setFilter("distance"))}
       >
         расстояние
       </li>
       <li
         className={
-          filter === 'danger'
-            ? 'filter__item filter__item--active'
-            : 'filter__item'
+          filter === "danger"
+            ? "filter__item filter__item--active"
+            : "filter__item"
         }
-        onClick={() => dispatch(setFilter('danger'))}
+        onClick={() => dispatch(setFilter("danger"))}
       >
-        {' '}
+        {" "}
         опасность
       </li>
     </ul>
