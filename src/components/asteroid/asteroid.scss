@@ -3,6 +3,30 @@
   max-width: 610px;
   margin: 0 auto;
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../../image/m2.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: -10;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -5;
+  }
+
   &__common-data {
     position: relative;
   }
@@ -35,8 +59,9 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: #141414;
+    background-color: rgba(0, 0, 0, 0.8);
     padding: 5px;
+    border-radius: 4px;
     span {
       display: inline;
     }

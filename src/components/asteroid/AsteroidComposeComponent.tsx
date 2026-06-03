@@ -1,15 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-import { numberFormatting } from '../asteroidsListItem/utils';
-import { ISingleAsteroid } from '../../api/types';
-import { v4 as uuidv4 } from 'uuid';
-import { AsteroidInnerProps } from './types';
+import { useNavigate } from "react-router-dom";
+import { numberFormatting } from "../asteroidsListItem/utils";
+import { ISingleAsteroid } from "../../api/types";
+import { v4 as uuidv4 } from "uuid";
+import { AsteroidInnerProps } from "./types";
 
 function renderAsteroidTableView(asteroid: ISingleAsteroid) {
   const items = asteroid?.approach_data?.map((item) => {
     return (
       <div className="asteroid__approach-item" key={uuidv4()}>
-        <span> {item.close_approach_date}</span>{' '}
-        <span>{numberFormatting(item?.distance_kilometers)}</span>{' '}
+        <span> {item.close_approach_date}</span>{" "}
+        <span>{numberFormatting(item?.distance_kilometers)}</span>{" "}
         <span>{numberFormatting(item?.kilometers_per_hour)}</span>
       </div>
     );
@@ -36,7 +36,7 @@ function renderAsteroidView(asteroid: any) {
     <>
       <div className="asteroid__common-data">
         <h2 className="asteroid__title">
-          Астероид - {asteroid?.name.replace(/[^\w ]/g, '')}
+          Астероид - {asteroid?.name.replace(/[^\w ]/g, "")}
         </h2>
         <span className="asteroid__text">
           Звездная величина: {asteroid?.absolute_magnitude_h} H
@@ -45,15 +45,15 @@ function renderAsteroidView(asteroid: any) {
           Обозначение: {asteroid?.designation}
         </span>
         <span className="asteroid__text">
-          Потенциально опасный:{' '}
+          Потенциально опасный:{" "}
           {asteroid?.is_potentially_hazardous_asteroid
-            ? 'опасный'
-            : 'не опасный'}
+            ? "опасный"
+            : "не опасный"}
         </span>
         <span className="asteroid__text"></span>
         <span className="asteroid__text"></span>
         <div className="asteroid__back-btn" onClick={() => navigate(-1)}>
-          {'❮  Вернуться'}
+          {"❮  Вернуться"}
         </div>
       </div>
       <div className="asteroid__orbital-data">
@@ -79,7 +79,11 @@ function renderAsteroidView(asteroid: any) {
         <span className="asteroid__text">
           Дата определения орбиты: {asteroid?.orbit_determination_date}
         </span>
-        <a className="asteroid__text" href={asteroid?.nasa_jpl_url}>
+        <a
+          className="asteroid__text"
+          href={asteroid?.nasa_jpl_url}
+          target="_blank"
+        >
           Дополнительная информация: <span>{asteroid?.nasa_jpl_url}</span>
         </a>
       </div>
