@@ -3,22 +3,20 @@
   max-width: 610px;
   margin: 0 auto;
 
-  &::before {
-    content: "";
-    position: absolute;
+  &__image {
+    position: fixed;
     top: 0;
     left: 0;
+    z-index: -10;
     width: 100vw;
     height: 100vh;
-    background-image: url("/images/m2.jpg");
     background-size: cover;
     background-position: center;
-    z-index: -10;
   }
 
   &::after {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
